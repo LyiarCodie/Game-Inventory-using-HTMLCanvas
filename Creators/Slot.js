@@ -5,9 +5,16 @@ import "../definitions.js";
 const CreateSlot = (c) => {
     let position = CreateVector2(10,10);
     let size = CreateDimensions(16, 16);
-    /** @type {Item | null} */
+    /** @type {Item} */
     let item = null;
     let isHovered = false;
+    
+    /** @param {Item | null} newItem */
+    const setItem = (newItem) => {
+        item = newItem;
+    }
+
+    const getItem = () => item;
 
     const setPosition = (newPosition = { x: 0, y: 0 }) => {
         Object.assign(position, newPosition);
@@ -20,8 +27,8 @@ const CreateSlot = (c) => {
     const getPosition = () => ({ x: position.x, y: position.y });
     const setHover = (value = true) => {
         if (typeof(value) != "boolean") { 
-        console.error("The assigned value is invalid! Expecting a `boolean` value");
-        return;
+            console.error("The assigned value is invalid! Expecting a `boolean` value");
+            return;
         }
 
         isHovered = value;
@@ -42,11 +49,11 @@ const CreateSlot = (c) => {
         if (isHovered) { drawOutlineRect(); }
 
         if (item) {
-        if ("draw" in item) item.draw();
+            if ("draw" in item) item.draw();
         }
     }
 
-    return { draw, update, setPosition, getSize, getPosition, setHover };
+    return { draw, update, setPosition, getSize, getPosition, setHover, getItem, setItem };
 }
 
 export default CreateSlot;

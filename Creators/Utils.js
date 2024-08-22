@@ -24,3 +24,16 @@ export function place_meeting(x, y, obj)
 
  return x > _obj.position.x && x < _obj.position.x + _obj.size.w && y > _obj.position.y && y < _obj.position.y + _obj.size.h;
 }
+
+export function getCursorPosition(clientX = 0, clientY = 0)
+{
+  const rect = canvas.getBoundingClientRect();
+
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+
+  const mouseX = Math.round((clientX - rect.left) * scaleX);
+  const mouseY = Math.round((clientY - rect.top) * scaleY);
+
+  return CreateVector2(mouseX, mouseY);
+}
